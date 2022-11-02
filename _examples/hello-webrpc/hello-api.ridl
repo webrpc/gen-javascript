@@ -1,0 +1,28 @@
+webrpc = v1
+
+name = hello-webrpc
+version = v1.0.0
+
+enum Kind: uint32
+  - USER = 1
+  - ADMIN = 2
+
+message Empty
+
+message User
+  - ID: uint64
+    + json = id
+    + go.tag.db = id
+
+  - username: string
+    + json = USERNAME
+    + go.tag.db = username
+
+  - createdAt?: timestamp
+    + json = created_at,omitempty
+    + go.tag.db = created_at
+
+
+service ExampleService
+  - Ping() => (status: bool)
+  - GetUser(userID: uint64) => (user: User)
