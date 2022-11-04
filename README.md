@@ -17,17 +17,38 @@ write by hand.
 
 2. Server -- a nodejs Javascript server handler. See examples.
 
-
-## webrpc-gen extras
-
-The `webrpc-gen` tool accepts an `-extra` cli flag, which is passed down to the generator, and
-we use it for some basic toggling during code-generation. For `javascript` generator, we make
-es6 code that includes module "exports" by default, but, if you'd like to use the client in a
-UMD scenario without having to use babel or something like it, you can pass `-extra=noexports`
-option to the cli.. like we do in the [hello-webrpc](../../_examples/hello-webrpc) example. 
-
-ie..
+## Usage
 
 ```
-webrpc-gen -schema=hello-api.webrpc.json -target=js -extra=noexports -client -out=./webapp/client.gen.js
+webrpc-gen -schema=example.ridl -target=javascript -Server -Client -out=./example.gen.ts
 ```
+
+or 
+
+```
+webrpc-gen -schema=example.ridl -target=github.com/webrpc/gen-javascript@v0.7.0 -Server -Client -out=./example.gen.js
+```
+
+or
+
+```
+webrpc-gen -schema=example.ridl -target=./local-templates-on-disk -Server -Client -out=./example.gen.js
+```
+
+### Set custom template variables
+Change any of the following values by passing `-Option="Value"` CLI flag to `webrpc-gen`.
+
+| CLI option flag      | Description                | Default value              |
+|----------------------|----------------------------|----------------------------|
+| `-Client`            | generate client code       | unset (`false`)            |
+| `-Server`            | generate server code       | unset (`false`)            |
+| `-Exports=false`     | disable "exports" in code  | enabled (`true`)           |
+
+Example:
+```
+webrpc-gen -schema=example.ridl -target=javascript -Server -Client -Exports=false -out=./example.gen.js
+```
+
+## LICENSE
+
+[MIT LICENSE](./LICENSE)
