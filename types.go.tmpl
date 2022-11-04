@@ -1,4 +1,7 @@
 {{define "types"}}
+
+{{- $opts := .Opts -}}
+
 //
 // Types
 //
@@ -7,7 +10,7 @@
 
 {{if .Type | isEnum -}}
 {{$enumName := .Name}}
-{{jsExportKeyword}}var {{$enumName}};
+{{if $opts.Export}}export {{end}}var {{$enumName}};
 (function ({{$enumName}}) {
 {{- range $i, $field := .Fields}}
   {{$enumName}}["{{$field.Name}}"] = "{{$field.Name}}"
@@ -16,7 +19,7 @@
 {{end -}}
 
 {{- if .Type | isStruct  }}
-{{jsExportKeyword}}class {{.Name}} {
+{{if $opts.Export}}export {{end}}class {{.Name}} {
   constructor(_data) {
     this._data = {}
     if (_data) {

@@ -12,9 +12,9 @@
 
 {{- /* Options with default values. */ -}}
 {{- $opts := dict -}}
-{{- set $opts "Client" (coalesce .Opts.Version false) -}}
-{{- set $opts "Server" (coalesce .Opts.Version false) -}}
-{{- set $opts "Extra" (coalesce .Opts.Extra "") -}}
+{{- set $opts "Client" (ternary (in .Opts.Client "" "true") true false) -}}
+{{- set $opts "Server" (ternary (in .Opts.Server "" "true") true false) -}}
+{{- set $opts "Export" (ternary (in .Opts.Export "false") false true) -}}
 
 {{- /* Print help on -Help. */ -}}
 {{- if exists .Opts "Help" -}}
@@ -46,12 +46,12 @@ export const WebRPCSchemaVersion = "{{.SchemaVersion}}"
 // Schema hash generated from your RIDL schema
 export const WebRPCSchemaHash = "{{.SchemaHash}}"
 
-{{template "types" .}}
-{{- if .Opts.Client}}
-  {{template "client" .}}
+{{template "types" dict "Services" .Services "Messages" .Messages "Opts" $opts}}
+{{- if $opts.Client}}
+  {{template "client" dict "Services" .Services "Opts" $opts}}
   {{template "client_helpers" .}}
 {{- end}}
-{{- if .Opts.Server}}
-  {{template "server" .}}
+{{- if $opts.Server}}
+  {{template "server" dict "Services" .Services "Opts" $opts}}
 {{- end}}
 {{- end}}
