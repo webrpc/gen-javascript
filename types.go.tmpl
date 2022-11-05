@@ -8,7 +8,7 @@
 {{ if .Messages -}}
 {{range .Messages -}}
 
-{{if .Type | isEnum -}}
+{{if .Type | isEnumType -}}
 {{$enumName := .Name}}
 {{if $opts.Export}}export {{end}}var {{$enumName}};
 (function ({{$enumName}}) {
@@ -18,7 +18,7 @@
 })({{$enumName}} || ({{$enumName}} = {}))
 {{end -}}
 
-{{- if .Type | isStruct  }}
+{{- if .Type | isStructType  }}
 {{if $opts.Export}}export {{end}}class {{.Name}} {
   constructor(_data) {
     this._data = {}

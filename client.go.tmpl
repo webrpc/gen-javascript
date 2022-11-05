@@ -31,7 +31,7 @@
         return {
         {{- $outputsCount := .Outputs|len -}}
         {{- range $i, $output := .Outputs}}
-          {{$output.Name}}: {{if not (isBaseType $output.Type)}}new {{$output.Type}}{{end}}(_data.{{$output.Name}}){{listComma $i $outputsCount}}
+          {{$output.Name}}: {{if isStructType $output.Type}}new {{$output.Type}}{{end}}(_data.{{$output.Name}}){{listComma $i $outputsCount}}
         {{- end}}
         }
       })
