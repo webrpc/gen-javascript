@@ -1,5 +1,7 @@
 {{define "server"}}
 
+{{- $typeMap := .TypeMap -}}
+
 {{- if .Services}}
 //
 // Server
@@ -45,8 +47,8 @@ import express from 'express'
                                     }
                                 {{end -}}
 
-                                if (typeof req.body["{{.Name}}"] !== "{{ .Type | jsFieldType }}") {
-                                    throw new WebRPCError("Invalid arg: {{ .Name }}, got type " + typeof req.body["{{ .Name }}"] + " expected " + "{{ .Type | jsFieldType }}", 400);
+                                if (typeof req.body["{{.Name}}"] !== "{{template "type" dict "Type" .Type "TypeMap" $typeMap}}") {
+                                    throw new WebRPCError("Invalid arg: {{ .Name }}, got type " + typeof req.body["{{ .Name }}"] + " expected " + "{{template "type" dict "Type" .Type "TypeMap" $typeMap}}", 400);
                                 }
                             {{end}}
 
