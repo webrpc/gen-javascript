@@ -18,7 +18,7 @@
     return this.hostname + this.path + name
   }
   {{range .Methods}}
-  {{.Name | jsMethodName}} = ({{.Inputs | jsMethodInputs}}) => {
+  {{firstLetterToLower .Name}} = ({{if len .Inputs}}args, {{end}}headers) => {
     return this.fetch(
       this.url('{{.Name}}'),
       {{- if .Inputs | len}}
@@ -31,7 +31,7 @@
         return {
         {{- $outputsCount := .Outputs|len -}}
         {{- range $i, $output := .Outputs}}
-          {{$output | jsNewOutputArgResponse}}{{listComma $i $outputsCount}}
+          {{$output.Name}}: {{if not (isBaseType $output.Type)}}new {{$output.Type}}{{end}}(_data.{{$output.Name}}){{listComma $i $outputsCount}}
         {{- end}}
         }
       })

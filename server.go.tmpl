@@ -17,7 +17,7 @@ import express from 'express'
 
     {{- range .Services}}
         {{$name := .Name}}
-        {{$serviceName := .Name | jsServiceInterfaceName}}
+        {{$serviceName := .Name}}
 
         export const create{{$serviceName}}App = (serviceImplementation) => {
             const app = express();

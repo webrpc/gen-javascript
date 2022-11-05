@@ -24,16 +24,16 @@
     this._data = {}
     if (_data) {
       {{range .Fields -}}
-      this._data['{{. | jsExportedJSONField}}'] = _data['{{. | jsExportedJSONField}}']
+      this._data['{{template "fieldName" dict "Field" . }}'] = _data['{{template "fieldName" dict "Field" . }}']
       {{end}}
     }
   }
   {{ range .Fields -}}
-  get {{. | jsExportedJSONField}}() {
-    return this._data['{{. | jsExportedJSONField }}']
+  get {{template "fieldName" dict "Field" . }}() {
+    return this._data['{{template "fieldName" dict "Field" .  }}']
   }
-  set {{. | jsExportedJSONField}}(value) {
-    this._data['{{. | jsExportedJSONField}}'] = value
+  set {{template "fieldName" dict "Field" . }}(value) {
+    this._data['{{template "fieldName" dict "Field" . }}'] = value
   }
   {{end}}
   toJSON() {

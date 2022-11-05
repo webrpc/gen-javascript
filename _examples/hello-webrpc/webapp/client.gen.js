@@ -13,7 +13,6 @@ export const WebRPCSchemaVersion = "v1.0.0"
 // Schema hash generated from your RIDL schema
 export const WebRPCSchemaHash = "d12378d7d88e036c2e5f779db475e7144b638b26"
 
-
 //
 // Types
 //
