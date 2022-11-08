@@ -7,7 +7,7 @@
 // Client
 //
 {{ range .Services}}
-{{if $opts.Export}}export {{end}}class {{.Name}} {
+{{if $opts.exports}}export {{end}}class {{.Name}} {
   constructor(hostname, fetch) {
     this.path = '/rpc/{{.Name}}/'
     this.hostname = hostname

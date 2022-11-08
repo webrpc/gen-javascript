@@ -10,7 +10,7 @@
 
 {{if .Type | isEnumType -}}
 {{$enumName := .Name}}
-{{if $opts.Export}}export {{end}}var {{$enumName}};
+{{if $opts.exports}}export {{end}}var {{$enumName}};
 (function ({{$enumName}}) {
 {{- range $i, $field := .Fields}}
   {{$enumName}}["{{$field.Name}}"] = "{{$field.Name}}"
@@ -19,7 +19,7 @@
 {{end -}}
 
 {{- if .Type | isStructType  }}
-{{if $opts.Export}}export {{end}}class {{.Name}} {
+{{if $opts.exports}}export {{end}}class {{.Name}} {
   constructor(_data) {
     this._data = {}
     if (_data) {

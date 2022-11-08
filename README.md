@@ -20,19 +20,19 @@ write by hand.
 ## Usage
 
 ```
-webrpc-gen -schema=example.ridl -target=javascript -Server -Client -out=./example.gen.ts
+webrpc-gen -schema=example.ridl -target=javascript -server -client -out=./example.gen.ts
 ```
 
 or 
 
 ```
-webrpc-gen -schema=example.ridl -target=github.com/webrpc/gen-javascript@v0.7.0 -Server -Client -out=./example.gen.js
+webrpc-gen -schema=example.ridl -target=github.com/webrpc/gen-javascript@v0.7.0 -server -client -out=./example.gen.js
 ```
 
 or
 
 ```
-webrpc-gen -schema=example.ridl -target=./local-templates-on-disk -Server -Client -out=./example.gen.js
+webrpc-gen -schema=example.ridl -target=./local-templates-on-disk -server -client -out=./example.gen.js
 ```
 
 ### Set custom template variables
@@ -40,13 +40,13 @@ Change any of the following values by passing `-Option="Value"` CLI flag to `web
 
 | CLI option flag      | Description                | Default value              |
 |----------------------|----------------------------|----------------------------|
-| `-Client`            | generate client code       | unset (`false`)            |
-| `-Server`            | generate server code       | unset (`false`)            |
-| `-Exports=false`     | disable "exports" in code  | enabled (`true`)           |
+| `-client`            | generate client code       | unset (`false`)            |
+| `-server`            | generate server code       | unset (`false`)            |
+| `-exports=false`     | disable "exports" in code  | enabled (`true`)           |
 
 Example:
 ```
-webrpc-gen -schema=example.ridl -target=javascript -Server -Client -Exports=false -out=./example.gen.js
+webrpc-gen -schema=example.ridl -target=javascript -server -client -exports=false -out=./example.gen.js
 ```
 
 ## LICENSE
