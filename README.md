@@ -36,9 +36,9 @@ webrpc-gen -schema=example.ridl -target=./local-templates-on-disk -server -clien
 ```
 
 ### Set custom template variables
-Change any of the following values by passing `-Option="Value"` CLI flag to `webrpc-gen`.
+Change any of the following values by passing `-option="Value"` CLI flag to `webrpc-gen`.
 
-| CLI option flag      | Description                | Default value              |
+| webrpc-gen -option   | Description                | Default value              |
 |----------------------|----------------------------|----------------------------|
 | `-client`            | generate client code       | unset (`false`)            |
 | `-server`            | generate server code       | unset (`false`)            |
