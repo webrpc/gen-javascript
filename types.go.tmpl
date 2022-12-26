@@ -5,8 +5,8 @@
 //
 // Types
 //
-{{ if .Messages -}}
-{{range .Messages -}}
+{{ if .Types -}}
+{{range .Types -}}
 
 {{if .Type | isEnumType -}}
 {{$enumName := .Name}}
