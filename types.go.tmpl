@@ -1,14 +1,15 @@
 {{define "types"}}
 
 {{- $opts := .Opts -}}
+{{- $types := .Types -}}
 
 //
 // Types
 //
-{{ if .Messages -}}
-{{range .Messages -}}
+{{ if $types -}}
+{{range $_, $type := $types -}}
 
-{{if .Type | isEnumType -}}
+{{if isEnumType $type -}}
 {{$enumName := .Name}}
 {{if $opts.exports}}export {{end}}var {{$enumName}};
 (function ({{$enumName}}) {
@@ -18,17 +19,17 @@
 })({{$enumName}} || ({{$enumName}} = {}))
 {{end -}}
 
-{{- if .Type | isStructType  }}
+{{- if isStructType $type }}
 {{if $opts.exports}}export {{end}}class {{.Name}} {
   constructor(_data) {
     this._data = {}
     if (_data) {
-      {{range .Fields -}}
+      {{range $type.Fields -}}
       this._data['{{template "fieldName" dict "Field" . }}'] = _data['{{template "fieldName" dict "Field" . }}']
       {{end}}
     }
   }
-  {{ range .Fields -}}
+  {{ range $type.Fields -}}
   get {{template "fieldName" dict "Field" . }}() {
     return this._data['{{template "fieldName" dict "Field" .  }}']
   }
