@@ -1,8 +1,9 @@
 {{define "server"}}
 
+{{- $services := .Services -}}
 {{- $typeMap := .TypeMap -}}
 
-{{- if .Services}}
+{{- if $services}}
 //
 // Server
 //
@@ -17,11 +18,9 @@ class WebRPCError extends Error {
 
 import express from 'express'
 
-    {{- range .Services}}
-        {{$name := .Name}}
-        {{$serviceName := .Name}}
+    {{- range $_, $service := $services}}
 
-        export const create{{$serviceName}}App = (serviceImplementation) => {
+        export const create{{$service.Name}}App = (serviceImplementation) => {
             const app = express();
 
             app.use(express.json())
@@ -36,26 +35,26 @@ import express from 'express'
                 }
 
                 switch(requestPath) {
-                    {{range .Methods}}
+                    {{range $_, $method := $service.Methods}}
 
-                    case "/rpc/{{$name}}/{{.Name}}": {                        
+                    case "/rpc/{{$service.Name}}/{{$method.Name}}": {                        
                         try {
-                            {{ range .Inputs }}
-                                {{- if not .Optional}}
-                                    if (!("{{ .Name }}" in req.body)) {
-                                        throw new WebRPCError("Missing Argument `{{ .Name }}`")
+                            {{ range $_, $input := $method.Inputs }}
+                                {{- if not $input.Optional}}
+                                    if (!("{{ $input.Name }}" in req.body)) {
+                                        throw new WebRPCError("Missing Argument `{{ $input.Name }}`")
                                     }
                                 {{end -}}
 
-                                if (typeof req.body["{{.Name}}"] !== "{{template "type" dict "Type" .Type "TypeMap" $typeMap}}") {
-                                    throw new WebRPCError("Invalid arg: {{ .Name }}, got type " + typeof req.body["{{ .Name }}"] + " expected " + "{{template "type" dict "Type" .Type "TypeMap" $typeMap}}", 400);
+                                if (typeof req.body["{{$input.Name}}"] !== "{{template "type" dict "Type" $input.Type "TypeMap" $typeMap}}") {
+                                    throw new WebRPCError("Invalid arg: {{ $input.Name }}, got type " + typeof req.body["{{ $input.Name }}"] + " expected " + "{{template "type" dict "Type" $input.Type "TypeMap" $typeMap}}", 400);
                                 }
                             {{end}}
 
-                            const response = await serviceImplementation["{{.Name}}"](req.body);
+                            const response = await serviceImplementation["{{$method.Name}}"](req.body);
 
-                            {{ range .Outputs}}
-                                if (!("{{ .Name }}" in response)) {
+                            {{ range $_, $output := .Outputs}}
+                                if (!("{{ $output.Name }}" in response)) {
                                     throw new WebRPCError("internal", 500);
                                 }
                             {{end}}
