@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { TestApi } from "./client";
+import { TestApi } from "./client.js";
 
 describe("Test interoperability with webrpc-test reference server", () => {
   const testApiClient = new TestApi(
