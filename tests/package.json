@@ -1,0 +1,26 @@
+{
+  "name": "gen-typescript-test",
+  "version": "1.0.0",
+  "description": "Webrpc TypeScript generator test",
+  "main": "index.js",
+  "scripts": {
+    "test": "./test.sh",
+    "vitest": "./node_modules/.bin/vitest run --reporter verbose --dir ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webrpc/gen-typescript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webrpc/gen-typescript/issues"
+  },
+  "homepage": "https://github.com/webrpc/gen-typescript#readme",
+  "devDependencies": {
+    "vitest": "^0.25.6"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
