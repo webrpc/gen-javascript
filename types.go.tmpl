@@ -24,19 +24,39 @@
   constructor(_data) {
     this._data = {}
     if (_data) {
-      {{range $type.Fields -}}
-      this._data['{{template "fieldName" dict "Field" . }}'] = _data['{{template "fieldName" dict "Field" . }}']
+      {{- range $_, $field := $type.Fields -}}
+      {{- $isExportable := true -}}
+      {{- range $meta := $field.Meta -}}
+        {{- if exists $meta "json" -}}
+          {{- if eq (printf "%v" (get $meta "json")) "-" -}}
+            {{- $isExportable = false}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if $isExportable }}
+      this._data['{{template "fieldName" dict "Field" $field }}'] = _data['{{template "fieldName" dict "Field" $field }}']
+      {{- end -}}
       {{end}}
     }
   }
-  {{ range $type.Fields -}}
-  get {{template "fieldName" dict "Field" . }}() {
-    return this._data['{{template "fieldName" dict "Field" .  }}']
+  {{ range $_, $field := $type.Fields -}}
+  {{- $isExportable := true -}}
+  {{- range $meta := $field.Meta -}}
+    {{- if exists $meta "json" -}}
+      {{- if eq (printf "%v" (get $meta "json")) "-" -}}
+        {{- $isExportable = false}}
+      {{- end -}}
+    {{- end -}}
+  {{- end }}
+  {{- if $isExportable }}
+  get {{template "fieldName" dict "Field" $field }}() {
+    return this._data['{{template "fieldName" dict "Field" $field  }}']
   }
-  set {{template "fieldName" dict "Field" . }}(value) {
-    this._data['{{template "fieldName" dict "Field" . }}'] = value
+  set {{template "fieldName" dict "Field" $field }}(value) {
+    this._data['{{template "fieldName" dict "Field" $field }}'] = value
   }
   {{end}}
+  {{- end }}
   toJSON() {
     return this._data
   }
