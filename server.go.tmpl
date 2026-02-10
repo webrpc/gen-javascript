@@ -1,5 +1,6 @@
 {{define "server"}}
 
+{{- $basepath := .Basepath -}}
 {{- $services := .Services -}}
 {{- $typeMap := .TypeMap -}}
 
@@ -37,7 +38,7 @@ import express from 'express'
                 switch(requestPath) {
                     {{range $_, $method := $service.Methods}}
 
-                    case "/rpc/{{$service.Name}}/{{$method.Name}}": {                        
+                    case "{{$basepath}}{{$service.Name}}/{{$method.Name}}": {                        
                         try {
                             {{ range $_, $input := $method.Inputs }}
                                 {{- if not $input.Optional}}

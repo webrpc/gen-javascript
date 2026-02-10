@@ -69,10 +69,10 @@
 
 {{template "types" dict "Services" .Services "Types" .Types "Opts" $opts}}
 {{- if $opts.client}}
-  {{template "client" dict "Services" .Services "Opts" $opts}}
+  {{template "client" dict "BasePath" .BasePath "Services" .Services "Opts" $opts}}
   {{template "client_helpers" .}}
 {{- end}}
 {{- if $opts.server}}
-  {{template "server" dict "Services" .Services "Opts" $opts "TypeMap" $typeMap}}
+  {{template "server" dict "BasePath" .BasePath "Services" .Services "Opts" $opts "TypeMap" $typeMap}}
 {{- end}}
 {{- end}}
