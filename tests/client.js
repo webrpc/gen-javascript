@@ -174,7 +174,7 @@ export class Complex {
 
 export class TestApi {
   constructor(hostname, fetch) {
-    this.path = '/rpc/TestApi/'
+    this.path = '/v1/TestApi/'
     this.hostname = hostname
     this.fetch = () => fetch
   }

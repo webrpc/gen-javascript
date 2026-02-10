@@ -1,15 +1,17 @@
 {{define "client"}}
 
+{{- $basepath := .BasePath -}}
+{{- $services := .Services -}}
 {{- $opts := .Opts -}}
 
-{{- if .Services}}
+{{- if $services }}
 //
 // Client
 //
-{{ range .Services}}
+{{ range $services }}
 {{if $opts.exports}}export {{end}}class {{.Name}} {
   constructor(hostname, fetch) {
-    this.path = '/rpc/{{.Name}}/'
+    this.path = '{{$basepath}}{{.Name}}/'
     this.hostname = hostname
     this.fetch = (input, init) => fetch(input, init)
   }
