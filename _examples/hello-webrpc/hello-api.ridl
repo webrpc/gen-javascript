@@ -7,6 +7,9 @@ enum Kind: uint32
   - USER = 1
   - ADMIN = 2
 
+type Username: string
+type Age: uint32
+
 struct Empty
 
 struct User

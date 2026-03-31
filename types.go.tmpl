@@ -19,6 +19,10 @@
 })({{$enumName}} || ({{$enumName}} = {}))
 {{end -}}
 
+{{- if isAliasType $type }}
+// type {{$type.Name}} = {{$type.Type}}
+{{end -}}
+
 {{- if isStructType $type }}
 {{if $opts.exports}}export {{end}}class {{.Name}} {
   constructor(_data) {
