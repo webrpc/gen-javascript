@@ -43,6 +43,7 @@ Change any of the following values by passing `-option="Value"` CLI flag to `web
 | `-client`            | generate client code       | unset (`false`)            |
 | `-server`            | generate server code       | unset (`false`)            |
 | `-exports=false`     | disable "exports" in code  | enabled (`true`)           |
+| `-schemaHash=false`  | don't emit schema hash + version consts | enabled (`true`)           |
 
 Example:
 ```
